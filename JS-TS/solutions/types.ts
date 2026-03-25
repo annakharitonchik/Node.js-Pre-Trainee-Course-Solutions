@@ -4,7 +4,7 @@ interface Todo {
     description?: string;
     status: TodoStatus;
     createdAt: Date;
-};
+}
 
 enum TodoStatus {
     PENDING,
