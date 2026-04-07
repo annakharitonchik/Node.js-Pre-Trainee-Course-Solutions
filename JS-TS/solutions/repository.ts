@@ -1,24 +1,29 @@
 export class InMemoryRepository<T extends { id: number }> {
-  // private storage
-  private items: T[] = [];
+    // private storage
+    private items: T[] = [];
 
-  add(entity: T): T {
-    throw new Error('add: not implemented');
-  }
+    add(entity: T): T {
+        this.items.push(entity);
+        return entity;
+    }
 
-  update(id: number, patch: Partial<T>): T {
-    throw new Error('update: not implemented');
-  }
+    update(id: number, patch: Partial<T>): T {
+        const index = this.items.findIndex((el) => el.id === id)
+        const newElem = {...this.items[index]}
+        Object.entries(patch).forEach(([key, value]) => newElem[key] = value);
+        this.items[index] = newElem
+        return newElem;
+    }
 
-  remove(id: number): void {
-    throw new Error('remove: not implemented');
-  }
+    remove(id: number): void {
+        this.items = this.items.filter((el) => el.id !== id)
+    }
 
-  findById(id: number): T | undefined {
-    throw new Error('findById: not implemented');
-  }
+    findById(id: number): T | undefined {
+        return this.items.find((el) => el.id === id);
+    }
 
-  findAll(): T[] {
-    throw new Error('findAll: not implemented');
-  }
+    findAll(): T[] {
+        return this.items;
+    }
 }
