@@ -54,27 +54,13 @@ import './StyledToDoItem.css';
  * - Keep styles close to components
  */
 export const StyledToDoItem: React.FC<TodoItemProps> = ({ todo }) => {
-  // TODO: Implement the StyledToDoItem component
-  // 
-  // Requirements:
-  // 1. Display the todo title and completion status
-  // 2. Apply different styles for completed vs active todos
-  // 3. Use CSS classes for styling
-  // 4. Make the component visually appealing
-  // 5. Handle different completion states gracefully
-  // 
-  // Example implementation:
-  // const itemClass = `todo-item ${todo.completed ? 'completed' : ''}`;
-  // 
-  // CSS classes to create:
-  // .todo-item { /* base styles */ }
-  // .todo-item.completed { /* completed styles */ }
-
+    const itemClass = `todo-item ${todo.completed ? 'completed' : ''}`;
   return (
     <div>
-      {/* TODO: Replace this with your implementation */}
       <h4>Styled ToDo Item Component</h4>
       <p>Implement conditional styling here</p>
+            <p key={todo.id} className={itemClass}> <span>{todo.title}</span> <span>{todo.completed? "completed":"not" +
+                " completed"}</span></p>
     </div>
   );
-}; 
+};
