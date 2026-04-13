@@ -43,31 +43,54 @@ import { Todo } from '../../types';
  * - Use useMemo for expensive calculations
  * - Keep state minimal and derive the rest
  */
+let count = 0;
 export const FilteredToDoList: React.FC = () => {
-  // TODO: Implement the FilteredToDoList component
-  // 
-  // Requirements:
-  // 1. Display a list of todos with add functionality
-  // 2. Add filter buttons: "All", "Active", "Completed"
-  // 3. Filter todos based on selected filter
-  // 4. Use derived state for filtered results
-  // 5. Add complete functionality for todos
-  // 
-  // Example implementation:
-  // const [todos, setTodos] = useState<Todo[]>([]);
-  // const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
-  // 
-  // const filteredTodos = todos.filter(todo => {
-  //   if (filter === 'active') return !todo.completed;
-  //   if (filter === 'completed') return todo.completed;
-  //   return true; // 'all' case
-  // });
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [inputValue, setInputValue] = useState<string>("")
+  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+
+const filteredTodos  = todos.filter((todo)=>{
+    if(filter === 'completed') return todo.completed
+    if(filter === "active") return !todo.completed
+    else return true
+})
+
+const addTodo = ()=>{
+    const newTodo: Todo = {
+        id: count++,
+        title: inputValue,
+        completed: false
+    }
+    setTodos([...todos, newTodo])
+    setInputValue('')
+
+}
+    const makeCompleted = (id: number) => {
+        const newTodosCopy = todos.map((todo)=> todo.id === id?
+            {
+            id: todo.id,
+            title: todo.title,
+            completed : true}
+        : todo)
+        setTodos(newTodosCopy)
+
+    }
 
   return (
     <div>
       {/* TODO: Replace this with your implementation */}
       <h4>Filtered ToDo List Component</h4>
-      <p>Implement derived state and filtering here</p>
+      <input placeholder = "Add todo" value={inputValue} onChange = {(event)=>setInputValue(event.target.value)}/>
+        <button onClick = {()=>addTodo()} >Add</button>
+        <button onClick = {()=>setFilter("all" )}>All</button>
+        <button onClick = {()=>setFilter("active")}>Active</button>
+        <button onClick = {()=>setFilter("completed")}>Completed</button>
+        {filteredTodos.map((todo)=>(
+            <div>
+                {todo.title}  <button onClick = {()=>{makeCompleted(todo.id)}}>Complete</button>
+                {todo.completed? "completed": "not completed"}
+            </div>
+        ))}
     </div>
   );
 }; 

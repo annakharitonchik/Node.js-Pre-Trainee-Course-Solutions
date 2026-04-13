@@ -37,31 +37,44 @@ import { Todo } from '../../types';
  * - Consider using libraries like Immer for complex updates
  * - Think about state structure before implementing
  */
+let count = 0
 export const CompleteToDoList: React.FC = () => {
-  // TODO: Implement the CompleteToDoList component
-  // 
-  // Requirements:
-  // 1. Display a list of todos with add functionality
-  // 2. Add a "Complete" button for each todo
-  // 3. When clicked, mark the todo as completed
-  // 4. Use immutable state updates
-  // 5. Show completion status for each todo
-  // 
-  // Example state structure:
-  // const [todos, setTodos] = useState<Todo[]>([]);
-  // 
-  // Example update function:
-  // const markCompleted = (id: number) => {
-  //   setTodos(todos.map(todo => 
-  //     todo.id === id ? {...todo, completed: true} : todo
-  //   ));
-  // };
+  const [toDoList, setToDoList] = useState<Todo[]>([]);
+const [inputValue, setInputValue] = useState<string>("")
+const addTodo = () => {
+    setInputValue("")
+        const newToDo : Todo= {
+        id: count++,
+        title: inputValue,
+            completed: false
+        }
+        setToDoList([...toDoList, newToDo])
+    }
+const makeCompleted = (id: number)=>{
+    const newTodosCopy = toDoList.map((todo)=> todo.id === id?
+        {
+            id: todo.id,
+            title: todo.title,
+            completed : true}
+        : todo)
+    setToDoList(newTodosCopy)
+
+
+}
 
   return (
     <div>
-      {/* TODO: Replace this with your implementation */}
       <h4>Complete ToDo List Component</h4>
-      <p>Implement immutable state updates here</p>
+        <input value = {inputValue}
+               placeholder = "Add todo"
+               onChange = {(event)=>setInputValue(event.target.value)}/>
+          <button  onClick={()=>addTodo()}>Add</button>
+        {toDoList.map((todo)=>(
+            <div key = {todo.id}>
+                {todo.title} <button onClick = {()=> makeCompleted(todo.id)}>Complete</button>
+                {todo.completed? "completed": "not completed"}
+            </div>
+        ))}
     </div>
   );
 }; 
