@@ -46,25 +46,29 @@ import { ActiveCountProps } from '../../types';
  * - Consider prop drilling vs context for deep data passing
  */
 export const ActiveCount: React.FC<ActiveCountProps> = ({ todos }) => {
-  // TODO: Implement the ActiveCount component
-  // 
-  // Requirements:
-  // 1. Calculate the number of active (incomplete) todos
-  // 2. Display the count in a user-friendly format
-  // 3. Handle edge cases (empty array, all completed)
-  // 4. Make the component reusable for any todos array
-  // 
-  // Example implementation:
-  // const activeCount = todos.filter(todo => !todo.completed).length;
-  // 
-  // Example display:
-  // "0 active todos" or "1 active todo" or "5 active todos"
+    let count  = 0;
+    let form = "";
+    const textFormatting = (count:number) =>{
+
+        if(count === 0 || count === 1){
+            form = "todo"
+        }
+        else{
+            form = "todos"
+        }
+    }
+ todos.forEach((todo)=>{
+     if(!todo) return
+     if(!todo.completed) count++
+     textFormatting(count)
+ })
+
 
   return (
     <div>
-      {/* TODO: Replace this with your implementation */}
       <h4>Active Count Component</h4>
       <p>Calculate and display active todos count here</p>
+        {count} active {form}
     </div>
   );
 }; 
