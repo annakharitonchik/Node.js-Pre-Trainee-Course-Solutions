@@ -73,38 +73,33 @@ import { Todo } from '../../types';
  * - Clear form after successful submission
  */
 export const AddToDoForm: React.FC = () => {
-  // TODO: Implement the AddToDoForm component
-  // 
-  // Requirements:
-  // 1. Create a controlled form with input field
-  // 2. Add a submit button
-  // 3. Handle form submission properly
-  // 4. Clear the form after submission
-  // 5. Validate that input is not empty
-  // 
-  // Example implementation:
-  // const [title, setTitle] = useState('');
-  // const [todos, setTodos] = useState<Todo[]>([]);
-  // 
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   if (!title.trim()) return;
-  //   
-  //   const newTodo: Todo = {
-  //     id: Date.now(),
-  //     title: title.trim(),
-  //     completed: false
-  //   };
-  //   
-  //   setTodos([...todos, newTodo]);
-  //   setTitle('');
-  // };
+   const [title, setTitle] = useState('');
+   const [todos, setTodos] = useState<Todo[]>([]);
+   const handleSubmit = (e: React.FormEvent) => {
+     e.preventDefault();
+     if (!title.trim()) return;
+
+     const newTodo: Todo = {
+       id: Date.now(),
+       title: title.trim(),
+       completed: false
+     };
+
+     setTodos([...todos, newTodo]);
+     setTitle('');
+   };
 
   return (
     <div>
-      {/* TODO: Replace this with your implementation */}
+
       <h4>Add ToDo Form Component</h4>
       <p>Implement controlled form handling here</p>
+        <input  placeholder = "Add todo" value = {title} onChange = {(e)=>{
+            setTitle(e.target.value)}}/>
+        <button type= "submit" onClick = {(e)=>handleSubmit(e)}>Submit</button>
+        {todos.map((todo)=>(
+            <div>{todo.title}</div>
+        ))}
     </div>
   );
 }; 
