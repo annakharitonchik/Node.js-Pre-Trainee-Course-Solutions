@@ -62,38 +62,29 @@ import { Todo } from '../../types';
  * - Handle loading and error states
  */
 export const FetchToDos: React.FC = () => {
-  // TODO: Implement the FetchToDos component
-  // 
-  // Requirements:
-  // 1. Fetch todos from an API endpoint
-  // 2. Display loading state while fetching
-  // 3. Handle and display any errors
-  // 4. Show the fetched todos in a list
-  // 5. Use useEffect for data fetching
-  // 
-  // Example implementation:
-  // const [todos, setTodos] = useState<Todo[]>([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState<string | null>(null);
-  // 
-  // useEffect(() => {
-  //   fetch('https://jsonplaceholder.typicode.com/todos')
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       setTodos(data.slice(0, 5)); // Limit to 5 todos
-  //       setLoading(false);
-  //     })
-  //     .catch(err => {
-  //       setError(err.message);
-  //       setLoading(false);
-  //     });
-  // }, []);
+   const [todos, setTodos] = useState<Todo[]>([]);
+   const [loading, setLoading] = useState(true);
+   const [error, setError] = useState<string | null>(null);
+
+   useEffect(() => {
+     fetch('https://jsonplaceholder.typicode.com/todos')
+       .then(response => response.json())
+       .then(data => {
+         setTodos(data.slice(0, 5)); // Limit to 5 todos
+         setLoading(false);
+       })
+       .catch(err => {
+         setError(err.message);
+         setLoading(false);
+       });
+   }, []);
 
   return (
     <div>
-      {/* TODO: Replace this with your implementation */}
       <h4>Fetch ToDos Component</h4>
       <p>Implement data fetching with useEffect here</p>
+        {loading? "loading" : todos.map((todo) => (<div key = {todo.id}> {todo.title} </div>)) }
+        {error && <p>{error}</p>}
     </div>
   );
-}; 
+};
